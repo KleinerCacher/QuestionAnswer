@@ -1,0 +1,25 @@
+﻿.question-create-input-title {
+    max-width: none;
+}
+
+.word-wrap {
+    word-wrap:break-word;
+}
+
+.question-answer-textarea {
+    max-width: none !important;
+    width: 100%;
+}
+
+.mce-panel{
+    width: 100% !important;
+}
+
+.moderationtext{
+    font-style:italic;
+}
+
+.question-title-labelbox{
+    display:flex;
+    padding-top: 10px;
+}
