@@ -19,7 +19,7 @@ namespace Hbs.Web.QuestionAnswer.Controllers
         // GET: Questions
         public ActionResult Index()
         {
-            return View(db.Questions.ToList());
+            return View(db.Questions.Include(q => q.Answers));
         }
 
         // GET: Questions/Details/5

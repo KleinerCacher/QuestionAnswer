@@ -37,6 +37,11 @@ namespace Hbs.Web.QuestionAnswer.Models
 
         public ICollection<Answer> Answers { get; set; }
 
+        [NotMapped]
+        public bool HasSolution {
+            get { return Answers.Any(a => a.IsCorrectAnswer); }
+        }
+
         public Question()
         {
             Answers = new List<Answer>();

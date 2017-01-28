@@ -1,4 +1,18 @@
-﻿.question-create-input-title {
+﻿.question-index-headline-container {
+    display: flex;
+    margin-top: -20px;
+    margin-bottom: -10px;
+}
+
+.question-index-headline-text {
+    padding-right: 5px;
+}
+
+.question-index-headline-icon {
+    margin-top: 20px;
+}
+
+.question-create-input-title {
     max-width: none;
 }
 
@@ -30,4 +44,8 @@
     margin-bottom: -17px;
     padding-top: 17px;
     padding-bottom: 17px;
+}
+
+.clearfix {
+    clear: both;
 }
