@@ -160,6 +160,18 @@
     <Compile Include="Migrations\201701271503122_addingModifiedDate.Designer.cs">
       <DependentUpon>201701271503122_addingModifiedDate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701281452402_MarkAnswerAsCorrect.cs" />
+    <Compile Include="Migrations\201701281452402_MarkAnswerAsCorrect.Designer.cs">
+      <DependentUpon>201701281452402_MarkAnswerAsCorrect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701281623306_Modifieddateisnullable.cs" />
+    <Compile Include="Migrations\201701281623306_Modifieddateisnullable.Designer.cs">
+      <DependentUpon>201701281623306_Modifieddateisnullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701281626471_Modifieddateisnullablequestion.cs" />
+    <Compile Include="Migrations\201701281626471_Modifieddateisnullablequestion.Designer.cs">
+      <DependentUpon>201701281626471_Modifieddateisnullablequestion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Answer.cs" />
     <Compile Include="Models\Question.cs" />
@@ -435,6 +447,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701271503122_addingModifiedDate.resx">
       <DependentUpon>201701271503122_addingModifiedDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701281452402_MarkAnswerAsCorrect.resx">
+      <DependentUpon>201701281452402_MarkAnswerAsCorrect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701281623306_Modifieddateisnullable.resx">
+      <DependentUpon>201701281623306_Modifieddateisnullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701281626471_Modifieddateisnullablequestion.resx">
+      <DependentUpon>201701281626471_Modifieddateisnullablequestion.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

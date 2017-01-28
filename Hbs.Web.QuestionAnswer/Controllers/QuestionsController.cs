@@ -113,7 +113,27 @@ namespace Hbs.Web.QuestionAnswer.Controllers
             {
                 return HttpNotFound();
             }
+
             return View(question);
+        }
+
+        // GET: Questions/MarkAsCorrectAnswer/5
+        public ActionResult MarkAsCorrectAnswer(int? id, bool isCorrect)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Answer answer = db.Answers.Find(id);
+            if (answer == null)
+            {
+                return HttpNotFound();
+            }
+
+            answer.IsCorrectAnswer = isCorrect;
+            db.Entry(answer).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Details", new { id = answer.QuestionId });
         }
 
         // POST: Questions/Edit/5

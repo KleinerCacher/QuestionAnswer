@@ -14,18 +14,23 @@ namespace Hbs.Web.QuestionAnswer.ViewModels
 
         [UIHint("tinymce_jquery_full_compressed"), AllowHtml]
         public string NewAnswerText { get; set; }
-        public string Author { get;  set; }
-
-        [DisplayFormat(DataFormatString ="{0:dd.MM.yyyy}")]
-        public DateTime CreationDate { get;  set; }
+        public string Author { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
-        public DateTime ModifiedDate { get; set; }
-        public int Id { get;  set; }
+        public DateTime CreationDate { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
+        public DateTime? ModifiedDate { get; set; }
+        public int Id { get; set; }
+
+        public bool IsAnswered
+        {
+            get { return Answers.Any(a => a.IsCorrectAnswer); }
+        }
 
         [UIHint("tinymce_jquery_full_compressed"), AllowHtml]
-        public string Text { get;  set; }
-        public string Title { get;  set; }
+        public string Text { get; set; }
+        public string Title { get; set; }
 
         public QuestionViewModel()
         {

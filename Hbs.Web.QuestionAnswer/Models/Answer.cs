@@ -23,6 +23,7 @@ namespace Hbs.Web.QuestionAnswer.Models
         public DateTime CreationDate { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
-        public DateTime ModifiedDate { get; set; }
+        public DateTime? ModifiedDate { get; set; }
+        public bool IsCorrectAnswer { get; set; }
     }
 }

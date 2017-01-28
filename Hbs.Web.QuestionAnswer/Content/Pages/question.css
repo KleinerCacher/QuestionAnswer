@@ -3,7 +3,7 @@
 }
 
 .word-wrap {
-    word-wrap:break-word;
+    word-wrap: break-word;
 }
 
 .question-answer-textarea {
@@ -11,15 +11,23 @@
     width: 100%;
 }
 
-.mce-panel{
+.mce-panel {
     width: 100% !important;
 }
 
-.moderationtext{
-    font-style:italic;
+.moderationtext {
+    font-style: italic;
 }
 
-.question-title-labelbox{
-    display:flex;
+.question-title-labelbox {
+    display: flex;
     padding-top: 10px;
+}
+
+.answer-correct {
+    background-color: yellowgreen;
+    margin-top: -17px;
+    margin-bottom: -17px;
+    padding-top: 17px;
+    padding-bottom: 17px;
 }

@@ -21,9 +21,12 @@ namespace Hbs.Web.QuestionAnswer.Models
 
         [UIHint("tinymce_jquery_full_compressed"), AllowHtml]
         public string Text { get; set; }
+
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
         public DateTime CreationDate { get; set; }
-        public DateTime ModifiedDate { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
+        public DateTime? ModifiedDate { get; set; }
         public string ShortText
         {
             get
