@@ -22,15 +22,11 @@ namespace Hbs.Web.QuestionAnswer.ViewModels
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
         public DateTime? ModifiedDate { get; set; }
         public int Id { get; set; }
-
-        public bool IsAnswered
-        {
-            get { return Answers.Any(a => a.IsCorrectAnswer); }
-        }
-
+        
         [UIHint("tinymce_jquery_full_compressed"), AllowHtml]
         public string Text { get; set; }
         public string Title { get; set; }
+        public bool isAnswered { get; set; }
 
         public QuestionViewModel()
         {
@@ -45,6 +41,7 @@ namespace Hbs.Web.QuestionAnswer.ViewModels
             this.Id = question.Id;
             this.Text = question.Text;
             this.Title = question.Title;
+            this.isAnswered = question.IsAnswered;
             this.Answers = new List<Answer>();
         }
     }

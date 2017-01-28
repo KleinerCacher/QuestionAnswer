@@ -25,12 +25,12 @@
 {
     <div class="question-container" data-question="@item.Title.ToLowerInvariant()" data-questiontext="@item.Text.ToLowerInvariant()">
         <div class="question-index-headline-container">
-            <div class="question-index-headline-text">
+            <div class="question-headline-text">
                 <h3>
                     @Html.ActionLink(item.Title, "Details", new { id = item.Id })
                 </h3>
             </div>
-            <div class="question-index-headline-icon" style="@(item.HasSolution ? "" : "display:none")">
+            <div class="question-headline-icon" style="@(item.IsAnswered ? "" : "display:none")">
                 <img src="~/Content/img/sign-check.png" />
             </div>
             <div class="clearfix"></div>

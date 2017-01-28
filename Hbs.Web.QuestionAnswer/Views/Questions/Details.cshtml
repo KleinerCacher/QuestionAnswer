@@ -10,7 +10,16 @@
 {
     @Html.AntiForgeryToken()
 
-    <h2>@Html.DisplayFor(model => model.Title)</h2>
+    <div class="question-details-headline-container">
+        <div class="question-headline-text">
+            <h2>@Html.DisplayFor(model => model.Title)</h2>
+        </div>
+        <div class="question-headline-icon" style="@(Model.isAnswered ? "" : "display:none")">
+            <img src="~/Content/img/sign-check.png" />
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
     @Html.ActionLink("Zurück zur Liste", "Index")
     <br />
     <h3>Frage</h3>
@@ -34,11 +43,11 @@
                 @Html.HiddenFor(model => model.Text)
 
                 <hr />
-                <div>
+                <div class="question-details-answer-container">
                     <h3>Antworten</h3>
                     @foreach (var answer in Model.Answers)
                     {
-                        <div class="@(answer.IsCorrectAnswer ? "answer-correct":"")">
+                        <div class="answer @(answer.IsCorrectAnswer ? "answer-correct":"")">
                             <div class="moderationtext">
                                 <text>@UserHelper.GetUserDisplayname(answer.Author)</text>
                                 - <text>
@@ -49,13 +58,14 @@
                                         }
                                     }
                                     - @Html.ActionLink("Antwort bearbeiten", "Edit", "Answers", new { id = answer.Id }, null)
-                                    @{if (!answer.IsCorrectAnswer && !Model.IsAnswered)
-                                        {                                            
-                                           <text>- </text> @Html.ActionLink("Als Lösung markieren", "MarkAsCorrectAnswer", new { id = answer.Id, isCorrect = true }, null);
+                                    @{if (!answer.IsCorrectAnswer && !Model.isAnswered)
+                                        {
+                                            <text>- </text> @Html.ActionLink("Als Lösung markieren", "MarkAsCorrectAnswer", new { id = answer.Id, isCorrect = true }, null);
                                         }
                                         else if (answer.IsCorrectAnswer)
                                         {
-                                           <text>- </text> @Html.ActionLink("Lösungsmarkierung entfernen", "MarkAsCorrectAnswer", new { id = answer.Id, isCorrect = false }, null);}}
+                                            <text>- </text> @Html.ActionLink("Lösungsmarkierung entfernen", "MarkAsCorrectAnswer", new { id = answer.Id, isCorrect = false }, null);
+                                        }}
                                     <br />
                             </div>
                             <div class="word-wrap">

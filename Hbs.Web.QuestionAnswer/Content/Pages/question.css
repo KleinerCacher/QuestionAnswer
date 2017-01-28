@@ -4,16 +4,20 @@
     margin-bottom: -10px;
 }
 
-.question-index-headline-text {
+.question-create-input-title {
+    max-width: none;
+}
+
+.question-details-headline-container {
+    display: flex;
+}
+
+.question-headline-text {
     padding-right: 5px;
 }
 
-.question-index-headline-icon {
+.question-headline-icon {
     margin-top: 20px;
-}
-
-.question-create-input-title {
-    max-width: none;
 }
 
 .word-wrap {
@@ -38,12 +42,20 @@
     padding-top: 10px;
 }
 
+.answer {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
 .answer-correct {
     background-color: yellowgreen;
-    margin-top: -17px;
-    margin-bottom: -17px;
-    padding-top: 17px;
-    padding-bottom: 17px;
+    padding-left: 5px;
+    margin-left: -5px;
+}
+
+.question-details-answer-container hr {
+    margin-bottom: 5px;
+    margin-top: 5px;
 }
 
 .clearfix {
