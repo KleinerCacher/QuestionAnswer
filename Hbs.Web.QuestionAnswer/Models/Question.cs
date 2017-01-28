@@ -38,7 +38,7 @@ namespace Hbs.Web.QuestionAnswer.Models
         public ICollection<Answer> Answers { get; set; }
 
         [NotMapped]
-        public bool IsAnswered {
+        public bool IsSolved {
             get { return Answers.Any(a => a.IsCorrectAnswer); }
         }
 

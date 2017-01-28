@@ -15,22 +15,28 @@
 <p>
     @Html.ActionLink("Neue Frage erstellen", "Create")
 </p>
-
-<div class="form-group filter-box">
-    <input type="text" class="form-control" id="filterbox" placeholder="Filtern...">
+<div class="form-inline">
+    <div class="form-group filter-box">
+        <input type="text" class="form-control" id="filterbox" placeholder="Filtern...">
+    </div>
+    <div class="btn-group index-filter-buttons" role="group" aria-label="...">
+        <button id="index-filter-button-all" type="button" class="btn">Alle</button>
+        <button id="index-filter-button-solved" type="button" class="btn">Gelöst</button>
+        <button id="index-filter-button-open" type="button" class="btn">Offen</button>
+    </div>
 </div>
-
 
 @foreach (var item in Model)
 {
-    <div class="question-container" data-question="@item.Title.ToLowerInvariant()" data-questiontext="@item.Text.ToLowerInvariant()">
-        <div class="question-index-headline-container">
+    <div class="question-container" data-solved="@item.IsSolved" data-question="@item.Title.ToLowerInvariant()" data-questiontext="@item.Text.ToLowerInvariant()">
+        <div class="flex question-index-headline-container">
             <div class="question-headline-text">
                 <h3>
                     @Html.ActionLink(item.Title, "Details", new { id = item.Id })
                 </h3>
             </div>
-            <div class="question-headline-icon" style="@(item.IsAnswered ? "" : "display:none")">
+            <div class="question-headline-icon" style="@(item.IsSolved ? "" : "display:none")">
+>
                 <img src="~/Content/img/sign-check.png" />
             </div>
             <div class="clearfix"></div>

@@ -26,7 +26,7 @@ namespace Hbs.Web.QuestionAnswer.ViewModels
         [UIHint("tinymce_jquery_full_compressed"), AllowHtml]
         public string Text { get; set; }
         public string Title { get; set; }
-        public bool isAnswered { get; set; }
+        public bool isSolved { get; set; }
 
         public QuestionViewModel()
         {
@@ -41,7 +41,7 @@ namespace Hbs.Web.QuestionAnswer.ViewModels
             this.Id = question.Id;
             this.Text = question.Text;
             this.Title = question.Title;
-            this.isAnswered = question.IsAnswered;
+            this.isSolved = question.IsSolved;
             this.Answers = new List<Answer>();
         }
     }
