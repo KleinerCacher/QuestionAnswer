@@ -12,7 +12,7 @@ namespace Hbs.Web.QuestionAnswer.ViewModels
     {
         public ICollection<Answer> Answers { get; internal set; }
 
-        [UIHint("tinymce_jquery_full_compressed"), AllowHtml]
+        [UIHint("tinymce_jquery_full"), AllowHtml]
         public string NewAnswerText { get; set; }
         public string Author { get; set; }
 
@@ -23,7 +23,7 @@ namespace Hbs.Web.QuestionAnswer.ViewModels
         public DateTime? ModifiedDate { get; set; }
         public int Id { get; set; }
         
-        [UIHint("tinymce_jquery_full_compressed"), AllowHtml]
+        [UIHint("tinymce_jquery_full"), AllowHtml]
         public string Text { get; set; }
         public string Title { get; set; }
         public bool isSolved { get; set; }
@@ -42,7 +42,7 @@ namespace Hbs.Web.QuestionAnswer.ViewModels
             this.Text = question.Text;
             this.Title = question.Title;
             this.isSolved = question.IsSolved;
-            this.Answers = new List<Answer>();
+            this.Answers = question.Answers;
         }
     }
 }

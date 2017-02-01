@@ -19,7 +19,7 @@ namespace Hbs.Web.QuestionAnswer.Models
         public string Title { get; set; }
         public string Author { get; set; }
 
-        [UIHint("tinymce_jquery_full_compressed"), AllowHtml]
+        [UIHint("tinymce_jquery_full"), AllowHtml]
         public string Text { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
