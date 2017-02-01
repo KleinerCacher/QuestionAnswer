@@ -63,7 +63,7 @@ namespace Hbs.Web.QuestionAnswer.Controllers
 
         private QuestionViewModel GenerateQuestionViewModel(int? id)
         {
-            Question question = db.Questions.Include(q => q.Answers.OrderBy(a => a.CreationDate)).SingleOrDefault(q => q.Id == id);
+            Question question = db.Questions.Include(q => q.Answers).SingleOrDefault(q => q.Id == id);
             if (question == null)
             {
                 return null;

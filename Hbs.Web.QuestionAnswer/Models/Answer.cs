@@ -15,7 +15,7 @@ namespace Hbs.Web.QuestionAnswer.Models
         public int QuestionId { get; set; }
         public Question Question { get; set; }
 
-        [UIHint("tinymce_jquery_full"), AllowHtml]
+        [UIHint("ckeditor_jquery"), AllowHtml]
         public string Text { get; set; }
         public string Author { get; set; }
 

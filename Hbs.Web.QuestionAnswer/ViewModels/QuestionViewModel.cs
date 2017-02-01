@@ -12,7 +12,7 @@ namespace Hbs.Web.QuestionAnswer.ViewModels
     {
         public ICollection<Answer> Answers { get; internal set; }
 
-        [UIHint("tinymce_jquery_full"), AllowHtml]
+        [UIHint("ckeditor_jquery"), AllowHtml]
         public string NewAnswerText { get; set; }
         public string Author { get; set; }
 
@@ -23,7 +23,7 @@ namespace Hbs.Web.QuestionAnswer.ViewModels
         public DateTime? ModifiedDate { get; set; }
         public int Id { get; set; }
         
-        [UIHint("tinymce_jquery_full"), AllowHtml]
+        [UIHint("ckeditor_jquery"), AllowHtml]
         public string Text { get; set; }
         public string Title { get; set; }
         public bool isSolved { get; set; }
