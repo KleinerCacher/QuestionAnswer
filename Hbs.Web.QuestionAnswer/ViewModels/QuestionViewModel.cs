@@ -8,41 +8,25 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Hbs.Web.QuestionAnswer.ViewModels
 {
-    public class QuestionViewModel
+    public class QuestionViewModel : QuestionIndexViewModel
     {
         public ICollection<Answer> Answers { get; internal set; }
 
         [UIHint("ckeditor_jquery"), AllowHtml]
         public string NewAnswerText { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
+        public DateTime? ModifiedDate { get; set; }
+
+
         public string Author { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
         public DateTime CreationDate { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
-        public DateTime? ModifiedDate { get; set; }
-        public int Id { get; set; }
-        
-        [UIHint("ckeditor_jquery"), AllowHtml]
-        public string Text { get; set; }
-        public string Title { get; set; }
-        public bool isSolved { get; set; }
-
         public QuestionViewModel()
         {
             Answers = new List<Answer>();
-        }
-
-        public QuestionViewModel(Question question)
-        {
-            this.Author = question.Author;
-            this.CreationDate = question.CreationDate;
-            this.ModifiedDate = question.ModifiedDate;
-            this.Id = question.Id;
-            this.Text = question.Text;
-            this.Title = question.Title;
-            this.isSolved = question.IsSolved;
-            this.Answers = question.Answers;
         }
     }
 }

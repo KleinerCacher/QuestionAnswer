@@ -19,7 +19,17 @@ namespace Hbs.Web.QuestionAnswer.Controllers
         // GET: Questions
         public ActionResult Index()
         {
-            return View(db.Questions.Include(q => q.Answers).OrderByDescending(q => q.CreationDate));
+            var questions = db.Questions
+                              .OrderByDescending(q => q.CreationDate)
+                              .Select(q => new QuestionIndexViewModel
+                              {
+                                  Id = q.Id,
+                                  Title = q.Title,
+                                  Text = q.Text,
+                                  IsSolved = q.Answers.Any(a => a.IsCorrectAnswer)
+                              });
+
+            return View(questions);
         }
 
         // GET: Questions/Details/5
@@ -63,15 +73,26 @@ namespace Hbs.Web.QuestionAnswer.Controllers
 
         private QuestionViewModel GenerateQuestionViewModel(int? id)
         {
-            Question question = db.Questions.Include(q => q.Answers).SingleOrDefault(q => q.Id == id);
+            var question = db.Questions
+                .Select(q => new QuestionViewModel
+                {
+                    Id = q.Id,
+                    Title = q.Title,
+                    Text = q.Text,
+                    IsSolved = q.Answers.Any(a => a.IsCorrectAnswer),
+                    Author = q.Author,
+                    CreationDate = q.CreationDate,
+                    ModifiedDate = q.ModifiedDate,
+                    Answers = q.Answers
+                })
+                .SingleOrDefault(q => q.Id == id);
+
             if (question == null)
             {
                 return null;
             }
 
-            QuestionViewModel viewModel = new QuestionViewModel(question);
-
-            return viewModel;
+            return question;
         }
 
         // GET: Questions/Create
@@ -159,7 +180,8 @@ namespace Hbs.Web.QuestionAnswer.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Question question = db.Questions.Find(id);
+
+            var question = GenerateQuestionViewModel(id);
             if (question == null)
             {
                 return HttpNotFound();

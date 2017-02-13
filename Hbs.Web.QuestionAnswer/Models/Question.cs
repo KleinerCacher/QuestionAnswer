@@ -11,7 +11,6 @@ namespace Hbs.Web.QuestionAnswer.Models
 {
     public class Question
     {
-        private const int shortTextLength = 400;
 
         [Key]
         public int Id { get; set; }
@@ -27,20 +26,8 @@ namespace Hbs.Web.QuestionAnswer.Models
 
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
         public DateTime? ModifiedDate { get; set; }
-        public string ShortText
-        {
-            get
-            {
-                return Text.Substring(0, Text.Length > shortTextLength ? shortTextLength : Text.Length);
-            }
-        }
 
         public ICollection<Answer> Answers { get; set; }
-
-        [NotMapped]
-        public bool IsSolved {
-            get { return Answers.Any(a => a.IsCorrectAnswer); }
-        }
 
         public Question()
         {

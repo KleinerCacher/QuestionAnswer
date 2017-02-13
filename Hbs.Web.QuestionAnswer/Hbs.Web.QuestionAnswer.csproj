@@ -178,6 +178,7 @@
     <Compile Include="Models\Question.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\ImagesViewModel.cs" />
+    <Compile Include="ViewModels\QuestionIndexViewModel.cs" />
     <Compile Include="ViewModels\QuestionViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
