@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using Hbs.Web.QuestionAnswer.Data;
+﻿using Hbs.Web.QuestionAnswer.Data;
 using Hbs.Web.QuestionAnswer.Models;
+using System;
+using System.Data.Entity;
+using System.Net;
+using System.Web.Mvc;
 
 namespace Hbs.Web.QuestionAnswer.Controllers
 {
@@ -56,12 +52,17 @@ namespace Hbs.Web.QuestionAnswer.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Answer answer = db.Answers.Find(id);
             if (answer == null)
             {
                 return HttpNotFound();
             }
-            return View(answer);
+
+            var questionId = answer.QuestionId;
+            db.Answers.Remove(answer);
+            db.SaveChanges();
+            return RedirectToAction("Details", "Questions", new { id = questionId });
         }
 
         // POST: Answers/Delete/5

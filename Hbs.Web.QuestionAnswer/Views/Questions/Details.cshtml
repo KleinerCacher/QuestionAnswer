@@ -67,6 +67,8 @@
                                         {
                                             <text>- </text> @Html.ActionLink("Lösungsmarkierung entfernen", "MarkAsCorrectAnswer", new { id = answer.Id, isCorrect = false }, null);
                                         }}
+
+                                    - @Html.ActionLink("Antwort löschen", "Delete", "Answers", new { id = answer.Id }, null)
                                     <br />
                             </div>
                             <div class="word-wrap">
