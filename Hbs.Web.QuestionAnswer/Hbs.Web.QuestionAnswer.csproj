@@ -133,49 +133,15 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\QuestionsController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Data\ApplicationDbContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201701251620496_Recreate.cs" />
-    <Compile Include="Migrations\201701251620496_Recreate.Designer.cs">
-      <DependentUpon>201701251620496_Recreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201701271247186_moreFieldsOnQuestion.cs" />
-    <Compile Include="Migrations\201701271247186_moreFieldsOnQuestion.Designer.cs">
-      <DependentUpon>201701271247186_moreFieldsOnQuestion.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201701271400410_DateTimeOnAnswers.cs" />
-    <Compile Include="Migrations\201701271400410_DateTimeOnAnswers.Designer.cs">
-      <DependentUpon>201701271400410_DateTimeOnAnswers.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201701271433127_renamingModifiedDate.cs" />
-    <Compile Include="Migrations\201701271433127_renamingModifiedDate.Designer.cs">
-      <DependentUpon>201701271433127_renamingModifiedDate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201701271450309_deletingmodifiedby.cs" />
-    <Compile Include="Migrations\201701271450309_deletingmodifiedby.Designer.cs">
-      <DependentUpon>201701271450309_deletingmodifiedby.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201701271503122_addingModifiedDate.cs" />
-    <Compile Include="Migrations\201701271503122_addingModifiedDate.Designer.cs">
-      <DependentUpon>201701271503122_addingModifiedDate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201701281452402_MarkAnswerAsCorrect.cs" />
-    <Compile Include="Migrations\201701281452402_MarkAnswerAsCorrect.Designer.cs">
-      <DependentUpon>201701281452402_MarkAnswerAsCorrect.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201701281623306_Modifieddateisnullable.cs" />
-    <Compile Include="Migrations\201701281623306_Modifieddateisnullable.Designer.cs">
-      <DependentUpon>201701281623306_Modifieddateisnullable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201701281626471_Modifieddateisnullablequestion.cs" />
-    <Compile Include="Migrations\201701281626471_Modifieddateisnullablequestion.Designer.cs">
-      <DependentUpon>201701281626471_Modifieddateisnullablequestion.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Answer.cs" />
     <Compile Include="Models\Question.cs" />
+    <Compile Include="ViewModels\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\ImagesViewModel.cs" />
     <Compile Include="ViewModels\QuestionIndexViewModel.cs" />
@@ -499,6 +465,7 @@
     <Content Include="Views\Answers\Edit.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\ckeditor_jquery.cshtml" />
     <Content Include="Views\Image\UploadPartial.cshtml" />
+    <Content Include="Views\User\UserInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -513,35 +480,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201701251620496_Recreate.resx">
-      <DependentUpon>201701251620496_Recreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701271247186_moreFieldsOnQuestion.resx">
-      <DependentUpon>201701271247186_moreFieldsOnQuestion.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701271400410_DateTimeOnAnswers.resx">
-      <DependentUpon>201701271400410_DateTimeOnAnswers.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701271433127_renamingModifiedDate.resx">
-      <DependentUpon>201701271433127_renamingModifiedDate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701271450309_deletingmodifiedby.resx">
-      <DependentUpon>201701271450309_deletingmodifiedby.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701271503122_addingModifiedDate.resx">
-      <DependentUpon>201701271503122_addingModifiedDate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701281452402_MarkAnswerAsCorrect.resx">
-      <DependentUpon>201701281452402_MarkAnswerAsCorrect.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701281623306_Modifieddateisnullable.resx">
-      <DependentUpon>201701281623306_Modifieddateisnullable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701281626471_Modifieddateisnullablequestion.resx">
-      <DependentUpon>201701281626471_Modifieddateisnullablequestion.cs</DependentUpon>
-    </EmbeddedResource>
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

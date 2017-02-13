@@ -26,7 +26,7 @@ namespace Hbs.Web.QuestionAnswer.Common
 
                         return fullName;
                     }
-                } 
+                }
             }
 
             return string.Empty;

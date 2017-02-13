@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace Hbs.Web.QuestionAnswer.ViewModels
 {
-    public class QuestionIndexViewModel
+    public class QuestionIndexViewModel 
     {
         private const int shortTextLength = 400;
 

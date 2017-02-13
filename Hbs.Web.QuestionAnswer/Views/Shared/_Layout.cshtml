@@ -1,6 +1,4 @@
-﻿@using Hbs.Web.QuestionAnswer.Common
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -23,9 +21,10 @@
                 @Html.ActionLink("Streit V1-Fragen", "Index", "Questions", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                </ul>
-                <p class="nav navbar-text navbar-right">Hallo, <text>@UserHelper.GetUserDisplayname(User.Identity.Name)</text>!</p>
+                <ul class="nav navbar-nav"></ul>
+                <div class="nav navbar-right">
+                    @Html.Action("UserInfo","User")                    
+                </div>
             </div>
         </div>
     </div>

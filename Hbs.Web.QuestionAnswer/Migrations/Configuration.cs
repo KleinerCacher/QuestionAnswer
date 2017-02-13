@@ -9,7 +9,7 @@ namespace Hbs.Web.QuestionAnswer.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(Hbs.Web.QuestionAnswer.Data.ApplicationDbContext context)
