@@ -192,10 +192,14 @@ namespace Hbs.Web.QuestionAnswer.Controllers
         // POST: Questions/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(Guid id)
+        public ActionResult DeleteConfirmed(int id)
         {
             Question question = db.Questions.Find(id);
             db.Questions.Remove(question);
+
+            var answers = db.Answers.Where(a => a.QuestionId == id);
+            db.Answers.RemoveRange(answers);
+
             db.SaveChanges();
             return RedirectToAction("Index");
         }
