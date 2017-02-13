@@ -130,6 +130,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Common\UserHelper.cs" />
     <Compile Include="Controllers\AnswersController.cs" />
+    <Compile Include="Controllers\HighscoreController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\QuestionsController.cs" />
@@ -466,6 +467,7 @@
     <Content Include="Views\Shared\EditorTemplates\ckeditor_jquery.cshtml" />
     <Content Include="Views\Image\UploadPartial.cshtml" />
     <Content Include="Views\User\UserInfo.cshtml" />
+    <Content Include="Views\Highscore\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -480,7 +482,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Base\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
