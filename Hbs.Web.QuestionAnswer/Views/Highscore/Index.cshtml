@@ -1,8 +1,21 @@
-﻿
+﻿@model Hbs.Web.QuestionAnswer.ViewModels.HighscoreViewModel
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Die meisten beantworteten Fragen</h2>
+<a href="@Model.ReturnUrl">Zurück zur letzten Ansicht</a><br /><br />
 
+<table class="table table-striped">
+    <tbody>
+        @foreach (var item in Model.HighscoreList)
+        {
+            <tr>
+                <td>@item.DisplayName</td>
+                <td>@item.AnsweredQuestions</td>
+            </tr>
+        }
+    </tbody>
+</table>

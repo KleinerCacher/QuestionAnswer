@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
+﻿using Hbs.Web.QuestionAnswer.Common;
 using Hbs.Web.QuestionAnswer.Data;
-using Hbs.Web.QuestionAnswer.Models;
 using Hbs.Web.QuestionAnswer.ViewModels;
+using System.Data;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace Hbs.Web.QuestionAnswer.Controllers
 {
@@ -17,23 +12,26 @@ namespace Hbs.Web.QuestionAnswer.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Highscore
-        public ActionResult Index()
+        public ActionResult Index(string sourceUrl)
         {
             var x = db.Answers
                     .Where(a => a.IsCorrectAnswer)
                     .GroupBy(a => a.Author);
 
+            var model = new HighscoreViewModel();
+            foreach (var item in x)
+            {
+                var highscore = new UserViewModel();
+                highscore.AnsweredQuestions = item.Count();
+                highscore.DisplayName = UserHelper.GetUserDisplayname(item.ElementAt(0).Author);
+                highscore.Login = item.ElementAt(0).Author;
+                model.HighscoreList.Add(highscore);
+            }
 
-                    
-                    //.SelectMany(q => q.Author).Distinct().ToList();
+            model.HighscoreList.OrderByDescending(t => t.AnsweredQuestions);
+            model.ReturnUrl = sourceUrl;
 
-            //var answeredQuestionCount = db.Questions
-            //       .Where(q => q.Answers
-            //                .Any(a => a.Author.ToLower() == User.Identity.Name.ToLower()
-            //                 && a.IsCorrectAnswer))
-            //       .Count();
-
-            return View();
+            return View(model);
         }
     }
 }

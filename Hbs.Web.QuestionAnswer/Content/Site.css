@@ -22,3 +22,42 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.numberCircle {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    padding-top: 4.5px;
+    margin-top: 9.5px;
+    background-color: #5cb85c;
+    text-align: center;
+}
+
+.numberCircle a {
+    text-decoration:none;
+    color: white !important;
+}
+
+.tooltiphover {
+    top: 50px;
+    left: 50px;
+}
+
+.tooltipnumberquestionsanswered { /* hide and position tooltip */
+    top: 14px;
+    right: 107px;
+    background-color: white;
+    color: black;
+    border-radius: 5px;
+    opacity: 0;
+    position: absolute;
+    -webkit-transition: opacity 0.5s;
+    -moz-transition: opacity 0.5s;
+    -ms-transition: opacity 0.5s;
+    -o-transition: opacity 0.5s;
+    transition: opacity 0.5s;
+}
+
+.tooltiphover:hover .tooltipnumberquestionsanswered { /* display tooltip on hover */
+    opacity: 1;
+}

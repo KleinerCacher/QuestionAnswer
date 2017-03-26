@@ -1,4 +1,9 @@
 ﻿@model Hbs.Web.QuestionAnswer.ViewModels.UserViewModel
 
-<div class="navbar-text">@Model.AnsweredQuestions</div>
+<div class="navbar-text tooltiphover numberCircle">
+    @Html.ActionLink(Model.AnsweredQuestions.ToString(), "Index", "Highscore", new { sourceUrl = Request.Url }, null)
+    <span class="tooltipnumberquestionsanswered">
+        Anzahl beantworteter Fragen
+    </span>
+</div>
 <div class="navbar-text">Hallo, <text>@Model.DisplayName</text>!</div>
