@@ -32,8 +32,11 @@
                     <text>- Bearbeitet: @Html.DisplayFor(model => model.ModifiedDate) </text>
                 }
             }
-            - @Html.ActionLink("Frage bearbeiten", "Edit", new { id = Model.Id })
-            - @Html.ActionLink("Frage löschen", "Delete", new { id = Model.Id })
+            @if (Model.Author.Equals(User.Identity.Name))
+            {
+                <text>-</text> @Html.ActionLink("Frage bearbeiten", "Edit", new { id = Model.Id })
+                <text>-</text> @Html.ActionLink("Frage löschen", "Delete", new { id = Model.Id })
+            }
         </div>
         @Html.Raw(Model.Text)
     </div>
@@ -58,17 +61,22 @@
                                             <text>- Bearbeitet: @answer.ModifiedDate.Value.ToString("dd.MM.yyyy") </text>
                                         }
                                     }
-                                    - @Html.ActionLink("Antwort bearbeiten", "Edit", "Answers", new { id = answer.Id }, null)
-                                    @{if (!answer.IsCorrectAnswer && !Model.IsSolved)
+                                    @if (answer.Author.Equals(User.Identity.Name))
+                                    {
+                                        <text>- </text> @Html.ActionLink("Antwort bearbeiten", "Edit", "Answers", new { id = answer.Id }, null)
+}
+                                    @{if (!answer.IsCorrectAnswer && !Model.IsSolved && Model.Author.Equals(User.Identity.Name))
                                         {
                                             <text>- </text> @Html.ActionLink("Als Lösung markieren", "MarkAsCorrectAnswer", new { id = answer.Id, isCorrect = true }, null);
                                         }
-                                        else if (answer.IsCorrectAnswer)
+                                        else if (answer.IsCorrectAnswer && Model.Author.Equals(User.Identity.Name))
                                         {
                                             <text>- </text> @Html.ActionLink("Lösungsmarkierung entfernen", "MarkAsCorrectAnswer", new { id = answer.Id, isCorrect = false }, null);
                                         }}
-
-                                    - @Html.ActionLink("Antwort löschen", "Delete", "Answers", new { id = answer.Id }, null)
+                                    @if (answer.Author.Equals(User.Identity.Name) & !answer.IsCorrectAnswer)
+                                    {
+                                        <text>- </text> @Html.ActionLink("Antwort löschen", "Delete", "Answers", new { id = answer.Id }, null)
+}
                                     <br />
                             </div>
                             <div class="word-wrap">
@@ -76,7 +84,7 @@
                             </div>
                         </div>
                         <hr />
-                                        }
+                                    }
 
                     <div class="form-horizontal">
                         <h4>Neue Antwort</h4>

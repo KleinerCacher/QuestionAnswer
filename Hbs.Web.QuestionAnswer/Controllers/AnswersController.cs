@@ -23,6 +23,12 @@ namespace Hbs.Web.QuestionAnswer.Controllers
             {
                 return HttpNotFound();
             }
+
+            if (!answer.Author.Equals(User.Identity.Name))
+            {
+                return RedirectToAction("Index", "Questions");
+            }
+
             ViewBag.QuestionId = new SelectList(db.Questions, "Id", "Title", answer.QuestionId);
             return View(answer);
         }
@@ -57,6 +63,11 @@ namespace Hbs.Web.QuestionAnswer.Controllers
             if (answer == null)
             {
                 return HttpNotFound();
+            }
+
+            if (!answer.Author.Equals(User.Identity.Name))
+            {
+                return RedirectToAction("Index", "Questions");
             }
 
             var questionId = answer.QuestionId;

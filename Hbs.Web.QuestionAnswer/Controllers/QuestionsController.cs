@@ -134,6 +134,11 @@ namespace Hbs.Web.QuestionAnswer.Controllers
                 return HttpNotFound();
             }
 
+            if (!question.Author.Equals(User.Identity.Name))
+            {
+                return RedirectToAction("Index");
+            }
+
             return View(question);
         }
 
@@ -186,6 +191,12 @@ namespace Hbs.Web.QuestionAnswer.Controllers
             {
                 return HttpNotFound();
             }
+
+            if (!question.Author.Equals(User.Identity.Name))
+            {
+                return RedirectToAction("Index");
+            }
+
             return View(question);
         }
 
