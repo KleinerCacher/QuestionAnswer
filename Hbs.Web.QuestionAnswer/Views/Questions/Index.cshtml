@@ -5,19 +5,18 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@section scripts
-{
-    <script type="text/javascript" src="~/Scripts/Pages/QuestionIndex.js"></script>
-}
-
 <h2>Bisherige Fragen</h2>
 
 <p>
     @Html.ActionLink("Neue Frage erstellen", "Create")
 </p>
 <div class="form-inline">
-    <div class="form-group filter-box">
-        <input type="text" class="form-control" id="filterbox" placeholder="Filtern...">
+
+    <div class="input-group filter-box">
+        <input type="text" class="form-control " placeholder="Fragentext...">
+        <span class="input-group-btn">
+            <button class="btn btn-default" type="button">Suchen</button>
+        </span>
     </div>
     <div class="btn-group index-filter-buttons" role="group" aria-label="...">
         <button id="index-filter-button-all" type="button" class="btn">Alle</button>
@@ -28,7 +27,7 @@
 
 @foreach (var item in Model)
 {
-    <div class="question-container" data-solved="@item.IsSolved" data-question="@item.Title.ToLowerInvariant()" data-questiontext="@item.Text.ToLowerInvariant()">
+    <div class="question-container">
         <div class="flex question-index-headline-container">
             <div class="question-headline-text">
                 <h3>

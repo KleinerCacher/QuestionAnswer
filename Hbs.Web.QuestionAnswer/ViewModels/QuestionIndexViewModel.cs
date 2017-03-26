@@ -21,6 +21,11 @@ namespace Hbs.Web.QuestionAnswer.ViewModels
         {
             get
             {
+                if (string.IsNullOrEmpty(Text))
+                {
+                    return string.Empty;
+                }
+
                 return Text.Substring(0, Text.Length > shortTextLength ? shortTextLength : Text.Length);
             }
         }

@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Hbs.Web.QuestionAnswer.Data;
 using Hbs.Web.QuestionAnswer.Models;
 using Hbs.Web.QuestionAnswer.ViewModels;
+using Hbs.Web.QuestionAnswer.Common;
 
 namespace Hbs.Web.QuestionAnswer.Controllers
 {
@@ -115,6 +116,7 @@ namespace Hbs.Web.QuestionAnswer.Controllers
             {
                 db.Questions.Add(question);
                 db.SaveChanges();
+                EmailManager.NewQuestionCreated(question);
                 return RedirectToAction("Index");
             }
 
@@ -158,6 +160,8 @@ namespace Hbs.Web.QuestionAnswer.Controllers
             answer.IsCorrectAnswer = isCorrect;
             db.Entry(answer).State = EntityState.Modified;
             db.SaveChanges();
+
+            EmailManager.QuestionIsAnswered(answer);
             return RedirectToAction("Details", new { id = answer.QuestionId });
         }
 

@@ -17,6 +17,11 @@ namespace Hbs.Web.QuestionAnswer.Data
 
         public ApplicationDbContext() : base("name=ApplicationDbContext")
         {
+            // do not change this configuration!!!
+            Configuration.AutoDetectChangesEnabled = true;
+            Configuration.LazyLoadingEnabled = false;
+            Configuration.ProxyCreationEnabled = false;
+            Configuration.ValidateOnSaveEnabled = true;
         }
 
         public System.Data.Entity.DbSet<Hbs.Web.QuestionAnswer.Models.Question> Questions { get; set; }
