@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Hbs.Web.QuestionAnswer.ViewModels.QuestionIndexViewModel>
+﻿@model Hbs.Web.QuestionAnswer.ViewModels.QuestionIndexViewModelContainer
 
 @{
     ViewBag.Title = "Fragenliste";
@@ -10,22 +10,38 @@
 <p>
     @Html.ActionLink("Neue Frage erstellen", "Create")
 </p>
-<div class="form-inline">
-
-    <div class="input-group filter-box">
-        <input type="text" class="form-control " placeholder="Fragentext...">
-        <span class="input-group-btn">
-            <button class="btn btn-default" type="button">Suchen</button>
-        </span>
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(model => model.Filter)
+    <div class="form-inline">
+        <div class="input-group filter-box">
+            @Html.TextBoxFor(model => model.SearchText, new { @class = "form-control ", @placeholder = "Fragentext..." })
+            @*@Html.TextBox("searchText", Model.SearchText, new { @class = "form-control ", @placeholder = "Fragentext..." })*@
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button"
+                        onclick="location.href='@Url.Action("Index", new { searchText = Model.SearchText, filter = Model.Filter })'">
+                    Suchen
+                </button>
+            </span>
+        </div>
+        <div class="btn-group index-filter-buttons" role="group" aria-label="...">
+            <button id="index-filter-button-all" type="button" class="btn"
+                    onclick="location.href='@Url.Action("Index", new { searchText = Model.SearchText, filter = 0 })'">
+                Alle
+            </button>
+            <button id="index-filter-button-solved" type="button" class="btn"
+                    onclick="location.href='@Url.Action("Index", new { searchText = Model.SearchText, filter = 1 })'">
+                Gelöst
+            </button>
+            <button id="index-filter-button-open" type="button" class="btn"
+                    onclick="location.href='@Url.Action("Index", new { searchText = Model.SearchText, filter = 2 })'">
+                Offen
+            </button>
+        </div>
     </div>
-    <div class="btn-group index-filter-buttons" role="group" aria-label="...">
-        <button id="index-filter-button-all" type="button" class="btn">Alle</button>
-        <button id="index-filter-button-solved" type="button" class="btn">Gelöst</button>
-        <button id="index-filter-button-open" type="button" class="btn">Offen</button>
-    </div>
-</div>
+}
 
-@foreach (var item in Model)
+@foreach (var item in Model.Questions)
 {
     <div class="question-container">
         <div class="flex question-index-headline-container">

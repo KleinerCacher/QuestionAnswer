@@ -18,9 +18,11 @@ namespace Hbs.Web.QuestionAnswer.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Questions
-        public ActionResult Index()
+        public ActionResult Index(string searchText, int filter = 0)
         {
             var questions = db.Questions
+                              .Where(q => string.IsNullOrEmpty(searchText) || q.Title.ToUpper().Contains(searchText.ToUpper())
+                              || q.Text.ToUpper().Contains(searchText.ToUpper()))
                               .OrderByDescending(q => q.CreationDate)
                               .Select(q => new QuestionIndexViewModel
                               {
@@ -30,7 +32,26 @@ namespace Hbs.Web.QuestionAnswer.Controllers
                                   IsSolved = q.Answers.Any(a => a.IsCorrectAnswer)
                               });
 
-            return View(questions);
+            switch (filter)
+            {
+                case 1:
+                    questions = questions.Where(q => q.IsSolved);
+                    break;
+                case 2:
+                    questions = questions.Where(q => !q.IsSolved);
+                    break;
+                case 0:
+                default:
+                    break;
+            }
+
+            var model = new QuestionIndexViewModelContainer
+            {
+                Questions = questions,
+                SearchText = searchText
+            };
+
+            return View(model);
         }
 
         // GET: Questions/Details/5
