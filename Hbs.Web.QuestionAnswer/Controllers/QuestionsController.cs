@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Hbs.Web.QuestionAnswer.Common;
+using Hbs.Web.QuestionAnswer.Data;
+using Hbs.Web.QuestionAnswer.Models;
+using Hbs.Web.QuestionAnswer.ViewModels;
+using System;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using Hbs.Web.QuestionAnswer.Data;
-using Hbs.Web.QuestionAnswer.Models;
-using Hbs.Web.QuestionAnswer.ViewModels;
-using Hbs.Web.QuestionAnswer.Common;
 
 namespace Hbs.Web.QuestionAnswer.Controllers
 {
@@ -87,6 +85,8 @@ namespace Hbs.Web.QuestionAnswer.Controllers
 
                 db.Answers.Add(answer);
                 db.SaveChanges();
+                var emailManager = new EmailManager(Request.Url.GetLeftPart(UriPartial.Authority));
+                emailManager.NewAnswerCreated(questionView.Id, questionView.Title, questionView.Author);
                 return RedirectToAction("Details", "Questions", new { id = questionView.Id });
             }
 
@@ -135,9 +135,10 @@ namespace Hbs.Web.QuestionAnswer.Controllers
 
             if (ModelState.IsValid)
             {
-                db.Questions.Add(question);
+                question = db.Questions.Add(question);
                 db.SaveChanges();
-                EmailManager.NewQuestionCreated(question);
+                var emailManager = new EmailManager(Request.Url.GetLeftPart(UriPartial.Authority));
+                emailManager.NewQuestionCreated(question.Id, question.Title);
                 return RedirectToAction("Index");
             }
 
@@ -172,7 +173,7 @@ namespace Hbs.Web.QuestionAnswer.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Answer answer = db.Answers.Find(id);
+            Answer answer = db.Answers.Where(a => a.Id == id).Include(a => a.Question).FirstOrDefault();
             if (answer == null)
             {
                 return HttpNotFound();
@@ -182,7 +183,11 @@ namespace Hbs.Web.QuestionAnswer.Controllers
             db.Entry(answer).State = EntityState.Modified;
             db.SaveChanges();
 
-            EmailManager.QuestionIsAnswered(answer);
+            if (isCorrect)
+            {
+                var emailManager = new EmailManager(Request.Url.GetLeftPart(UriPartial.Authority));
+                emailManager.QuestionIsAnswered(answer.QuestionId, answer.Question.Title, answer.Author);
+            }
             return RedirectToAction("Details", new { id = answer.QuestionId });
         }
 
