@@ -111,3 +111,33 @@
 .clearfix {
     clear: both;
 }
+
+.dt-image-to-dialog:hover {
+    opacity: 0.7;
+    border-color: #ff8c00;
+}
+
+.dt-image-to-dialog {
+    cursor: pointer;
+    transition: 0.3s;
+    border: 1px solid #c3c3c3;
+}
+
+.image-preview {
+    display: inline-block;
+}
+
+    .image-preview img {
+        max-height: 100px;
+        max-width: 100px;
+    }
+
+#pictureDialog {
+    max-width: none;
+    padding: 40px 24px;
+}
+
+    #pictureDialog img {
+        height: 100%;
+        width: 100%;
+    }

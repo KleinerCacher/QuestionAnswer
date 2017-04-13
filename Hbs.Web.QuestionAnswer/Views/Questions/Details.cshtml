@@ -38,10 +38,30 @@
                 <text>-</text> @Html.ActionLink("Frage löschen", "Delete", new { id = Model.Id })
             }
         </div>
-        @Html.Raw(Model.Text)
+
+        <div class="form-group">
+            @Html.Raw(Model.Text)
+        </div>
+        <div class="form-group">
+            <div>
+                <label class="ms-Label">Bilder</label>
+            </div>
+            <div class="row">
+                @foreach (var attachment in Model.Attachments)
+                {
+                    <div >
+                        <div class="col-md-1">
+                            <div class="image-preview">
+                                <img src="/Questions/Attachment/@attachment.Id" class="dt-image-to-dialog" />
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
     </div>
 
-    @Html.HiddenFor(model => model.Author)
+        @Html.HiddenFor(model => model.Author)
                 @Html.HiddenFor(model => model.CreationDate)
                 @Html.HiddenFor(model => model.Title)
                 @Html.HiddenFor(model => model.Text)

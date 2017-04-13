@@ -1,4 +1,18 @@
-﻿$('form').submit(function (e) {
+﻿$(function () {
+    var pictures = document.querySelectorAll('.dt-image-to-dialog');
+    if (pictures) {
+        $.each(pictures, function (index, picture) {
+            $(picture).click(function () {
+                var dialogElement = document.querySelector('#pictureDialog');
+                dialogElement.querySelector('#pictureElement').src = this.src;
+                var dialog = new fabric.Dialog(dialogElement);
+                dialog.open();
+            });
+        });
+    }
+});
+
+$('form').submit(function (e) {
     alert('fdgsdfgsfdgdsfg');
 });
 
@@ -17,4 +31,38 @@ $('form').submit(function (e) {
             $('input:disabled').removeAttr('disabled');
         }
     }
+});
+
+$(function () {
+    var fileInputs = $('input[type="file"]');
+    $.each(fileInputs, function (index, fileInput) {
+        $(fileInput).on('change', function (event) {
+            var files = event.currentTarget.files;
+            var error = false;
+
+            if (files.length > 0) {
+                $('#selectedFiles').html('');
+
+
+                for (var x = 0; x < files.length; x++) {
+                    var filesize = ((files[x].size / 1024) / 1024).toFixed(4); // MB
+                    var fileRow = "";
+
+                    if (filesize <= 4) { //default MVC settings -> 4MB
+                        fileRow = $.parseHTML('<div class="ms-Grid-row"><div class="ms-Grid-col ms-u-sm1"><i class="ms-Icon ms-Icon--CheckMark" title="CheckMark" aria-hidden="true"></i></div><div class="ms-Grid-col ms-u-sm11 dt-dotdotdot" title="' + files[x].name + '">' + files[x].name + '</div></div>');
+                    }
+                    else {
+                        fileRow = $.parseHTML('<div class="ms-Grid-row"><div class="ms-Grid-col ms-u-sm1"><i class="ms-Icon ms-Icon--Warning" title="Warning" aria-hidden="true" style="color: red;"></i></div><div class="ms-Grid-col ms-u-sm6 dt-dotdotdot" title="' + files[x].name + '">' + files[x].name + '</div><div class="ms-Grid-col ms-u-sm5">' + DtLanguageResources['GeneralLabelFileTooBig'] + '</div></div>');
+
+                        error = true;
+
+                    }
+                    $('#selectedFiles').append(fileRow);
+                }
+                if (error) {
+                    $(fileInput).val('');
+                }
+            }
+        });
+    });
 });

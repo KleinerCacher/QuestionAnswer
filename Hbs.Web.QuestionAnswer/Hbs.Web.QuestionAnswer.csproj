@@ -134,6 +134,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Common\AttachmentHelper.cs" />
+    <Compile Include="Common\EnumDescription.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Common\EmailManager.cs" />
     <Compile Include="Common\UserHelper.cs" />
@@ -227,6 +228,7 @@
     <Content Include="Views\Image\UploadPartial.cshtml" />
     <Content Include="Views\User\UserInfo.cshtml" />
     <Content Include="Views\Highscore\Index.cshtml" />
+    <Content Include="Views\Shared\_PictureDialog.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

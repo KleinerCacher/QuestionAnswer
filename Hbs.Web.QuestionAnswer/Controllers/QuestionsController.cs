@@ -99,7 +99,7 @@ namespace Hbs.Web.QuestionAnswer.Controllers
         private QuestionViewModel GenerateQuestionViewModel(int? id)
         {
             var question = db.Questions
-                .Include(q => q.Attachments)
+                .Include(q => q.Attachments.Select(x => x.Id))
                 .Select(q => new QuestionViewModel
                 {
                     Id = q.Id,
@@ -120,6 +120,12 @@ namespace Hbs.Web.QuestionAnswer.Controllers
             }
 
             return question;
+        }
+
+        public ActionResult Attachment(int id)
+        {
+            QuestionAttachment img = db.QuestionAttachments.Find(id);
+            return File(img.Data, EnumDescription.Get(img.FileType));
         }
 
         // GET: Questions/Create
