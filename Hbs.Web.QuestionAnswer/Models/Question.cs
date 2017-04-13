@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Hbs.Web.QuestionAnswer.Models.Attachments;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -18,7 +19,7 @@ namespace Hbs.Web.QuestionAnswer.Models
         public string Title { get; set; }
         public string Author { get; set; }
 
-        [UIHint("ckeditor_jquery"), AllowHtml]
+        // TODO Textarea richtig ziehen in Create und Edit
         public string Text { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
@@ -28,6 +29,7 @@ namespace Hbs.Web.QuestionAnswer.Models
         public DateTime? ModifiedDate { get; set; }
 
         public ICollection<Answer> Answers { get; set; }
+        public List<QuestionAttachment> Attachments { get; set; }
 
         public Question()
         {

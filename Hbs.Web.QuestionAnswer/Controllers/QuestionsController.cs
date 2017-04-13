@@ -1,12 +1,15 @@
 ﻿using Hbs.Web.QuestionAnswer.Common;
 using Hbs.Web.QuestionAnswer.Data;
 using Hbs.Web.QuestionAnswer.Models;
+using Hbs.Web.QuestionAnswer.Models.Attachments;
 using Hbs.Web.QuestionAnswer.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
 
 namespace Hbs.Web.QuestionAnswer.Controllers
@@ -96,6 +99,7 @@ namespace Hbs.Web.QuestionAnswer.Controllers
         private QuestionViewModel GenerateQuestionViewModel(int? id)
         {
             var question = db.Questions
+                .Include(q => q.Attachments)
                 .Select(q => new QuestionViewModel
                 {
                     Id = q.Id,
@@ -105,7 +109,8 @@ namespace Hbs.Web.QuestionAnswer.Controllers
                     Author = q.Author,
                     CreationDate = q.CreationDate,
                     ModifiedDate = q.ModifiedDate,
-                    Answers = q.Answers
+                    Answers = q.Answers,
+                    Attachments = q.Attachments
                 })
                 .SingleOrDefault(q => q.Id == id);
 
@@ -196,12 +201,16 @@ namespace Hbs.Web.QuestionAnswer.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Author,Text,CreationDate")] Question question)
+        public ActionResult Edit([Bind(Include = "Id,Title,Author,Text,CreationDate")] Question question, IEnumerable<HttpPostedFileBase> files)
         {
             if (ModelState.IsValid)
             {
                 question.ModifiedDate = DateTime.Now;
                 db.Entry(question).State = EntityState.Modified;
+
+                var attachments = AttachmentHelper.TransformToAttachments(question.Id, files);
+                db.QuestionAttachments.AddRange(attachments);
+
                 db.SaveChanges();
                 return RedirectToAction("Details", "Questions", new { id = question.Id });
             }

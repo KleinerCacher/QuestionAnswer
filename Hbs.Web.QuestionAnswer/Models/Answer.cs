@@ -14,8 +14,7 @@ namespace Hbs.Web.QuestionAnswer.Models
         // TODO Question ID muss Indeziert werden
         public int QuestionId { get; set; }
         public Question Question { get; set; }
-
-        [UIHint("ckeditor_jquery"), AllowHtml]
+        // TODO Textarea richtig ziehen in Create (Question) und Edit
         public string Text { get; set; }
         public string Author { get; set; }
 

@@ -23,6 +23,9 @@ namespace Hbs.Web.QuestionAnswer
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/questions").Include(
+                      "~/Scripts/questions.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",

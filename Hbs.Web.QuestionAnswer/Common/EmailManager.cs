@@ -21,37 +21,61 @@ namespace Hbs.Web.QuestionAnswer.Common
 
         public void QuestionIsAnswered(int questionId, string questionTitle, string answerAuthor)
         {
-            var subject = "Streit V1-Fragen: Deine Antwort wurde als korrekte Antwort ausgewählt";
-            var body = String.Format("Der Fragensteller hat Deine Antwort als richtig markiert. <br/>" +
-                                     "Du findest die Frage unter folgendem Link: <br/> <h2>{0}</h2>",
-                                      GenerateQuestionDetailsLink(questionId, questionTitle));
+            try
+            {
+                var subject = "Streit V1-Fragen: Deine Antwort wurde als korrekte Antwort ausgewählt";
+                var body = String.Format("Der Fragensteller hat Deine Antwort als richtig markiert. <br/>" +
+                                         "Du findest die Frage unter folgendem Link: <br/> <h2>{0}</h2>",
+                                          GenerateQuestionDetailsLink(questionId, questionTitle));
 
-            var to = GetMailAdress(answerAuthor);
-            SendMail(new string[] { to }, subject, body);
+                var to = GetMailAdress(answerAuthor);
+                SendMail(new string[] { to }, subject, body);
+            }
+            catch (Exception)
+            {
+                // TODO Logging
+                // TODO Notification  
+            }
         }
 
         public void NewQuestionCreated(int questionId, string questionTitle)
         {
-            var subject = "Streit V1-Fragen: Es wurde eine neue Frage erstellt";
-            var body = String.Format("Jemand hat eine neue Frage im Streit V1 - Fragencenter erstellt.<br/> "+
-                                     "Schau doch mal ob Du vielleicht helfen kannst. <br/>" +
-                                     "Du findest die Frage unter folgendem Link: <br/> <h2>{0}</h2>",
-                                      GenerateQuestionDetailsLink(questionId, questionTitle));
+            try
+            {
+                var subject = "Streit V1-Fragen: Es wurde eine neue Frage erstellt";
+                var body = String.Format("Jemand hat eine neue Frage im Streit V1 - Fragencenter erstellt.<br/> " +
+                                         "Schau doch mal ob Du vielleicht helfen kannst. <br/>" +
+                                         "Du findest die Frage unter folgendem Link: <br/> <h2>{0}</h2>",
+                                          GenerateQuestionDetailsLink(questionId, questionTitle));
 
-            var to = ConfigurationManager.AppSettings["MailKeyuser"].Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
-            SendMail(to, subject, body);
+                var to = ConfigurationManager.AppSettings["MailKeyuser"].Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+                SendMail(to, subject, body);
+            }
+            catch (Exception)
+            {
+                // TODO Logging
+                // TODO Notification  
+            }
         }
 
         public void NewAnswerCreated(int questionId, string questionTitle, string questionAuthor)
         {
-            var subject = "Streit V1-Fragen: Auf Deine Frage gibt es eine neue Antwort";
-            var body = String.Format("Es gibt eine neue Antwort auf Deine Frage. <br/>"+
-                                     "Schau doch mal ob Dir die Antwort bei Deinem Problem hilft. <br/>" +
-                                     "Du findest die Frage unter folgendem Link: <br/> <h2>{0}</h2>",
-                                      GenerateQuestionDetailsLink(questionId, questionTitle));
+            try
+            {
+                var subject = "Streit V1-Fragen: Auf Deine Frage gibt es eine neue Antwort";
+                var body = String.Format("Es gibt eine neue Antwort auf Deine Frage. <br/>" +
+                                         "Schau doch mal ob Dir die Antwort bei Deinem Problem hilft. <br/>" +
+                                         "Du findest die Frage unter folgendem Link: <br/> <h2>{0}</h2>",
+                                          GenerateQuestionDetailsLink(questionId, questionTitle));
 
-            var to = GetMailAdress(questionAuthor);
-            SendMail(new string[] { to }, subject, body);
+                var to = GetMailAdress(questionAuthor);
+                SendMail(new string[] { to }, subject, body);
+            }
+            catch (Exception ex)
+            {
+                // TODO Logging
+                // TODO Notification               
+            }
         }
 
         private string GenerateQuestionDetailsLink(int questionId, string questionTitle)

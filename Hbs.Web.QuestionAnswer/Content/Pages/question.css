@@ -81,12 +81,6 @@
 }
 
 .question-answer-textarea {
-    max-width: none !important;
-    width: 100%;
-}
-
-.mce-panel {
-    width: 100% !important;
 }
 
 .moderationtext {

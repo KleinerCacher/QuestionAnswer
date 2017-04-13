@@ -24,8 +24,10 @@ namespace Hbs.Web.QuestionAnswer.Data
             Configuration.ValidateOnSaveEnabled = true;
         }
 
-        public System.Data.Entity.DbSet<Hbs.Web.QuestionAnswer.Models.Question> Questions { get; set; }
+        public DbSet<Models.Question> Questions { get; set; }
 
-        public System.Data.Entity.DbSet<Hbs.Web.QuestionAnswer.Models.Answer> Answers { get; set; }
+        public DbSet<Models.Answer> Answers { get; set; }
+
+        public DbSet<Models.Attachments.QuestionAttachment> QuestionAttachments { get; set; }
     }
 }

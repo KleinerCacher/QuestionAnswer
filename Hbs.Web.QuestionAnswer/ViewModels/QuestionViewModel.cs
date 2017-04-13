@@ -5,6 +5,7 @@ using System.Web;
 using Hbs.Web.QuestionAnswer.Models;
 using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations;
+using Hbs.Web.QuestionAnswer.Models.Attachments;
 
 namespace Hbs.Web.QuestionAnswer.ViewModels
 {
@@ -23,6 +24,8 @@ namespace Hbs.Web.QuestionAnswer.ViewModels
 
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
         public DateTime CreationDate { get; set; }
+
+        public List<QuestionAttachment> Attachments { get; set; }
 
         public QuestionViewModel()
         {
