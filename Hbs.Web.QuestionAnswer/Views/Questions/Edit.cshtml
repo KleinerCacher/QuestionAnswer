@@ -38,13 +38,35 @@
             </div>
         </div>
         <div>
-            <div class="ms-Grid-row">
-                <div class="ms-Grid-col ms-u-sm12">
-                    <input type="file" name="files" multiple="multiple" />
-                </div>
-                <div class="ms-Grid-col ms-u-sm12" id="selectedFiles">
-                    <!-- selected files will show up here -->
-                </div>
+            <div>
+                @if (Model.Attachments != null)
+                {
+                    for (int i = 0; i < Model.Attachments.Count; i++)
+                    {
+                        <div class="row singlefile" id="@string.Format("attrowid{0}", Model.Attachments[i].Id)">
+                            <div class="col-lg-2">
+                                <div class="image-preview">
+                                    <img src="/Questions/Attachment/@Model.Attachments[i].Id" class="dt-image-to-dialog" />
+                                </div>
+                            </div>
+                            <div class="col-lg-5 dt-dotdotdot" title="@Model.Attachments[i].Name">@Model.Attachments[i].Name</div>
+                            <div class="col-lg-5">
+                                <a href="javascript:void(0)" title="Delete" onclick="deleteAttachment(@Model.Attachments[i].Id)">
+                                   <span class="glyphicon glyphicon-trash"></span>
+                                </a>
+                            </div>
+                            @Html.HiddenFor(model => model.Attachments[i].Id)
+                            @Html.HiddenFor(model => model.Attachments[i].Name)
+                            @Html.HiddenFor(model => model.Attachments[i].Delete, new { id = "attrdeleteid" + Model.Attachments[i].Id })
+                        </div>
+                    }
+                }
+            </div>
+            <div>
+                <input type="file" name="files" multiple="multiple" />
+            </div>
+            <div id="selectedFiles">
+                <!-- selected files will show up here -->
             </div>
         </div>
         <br />

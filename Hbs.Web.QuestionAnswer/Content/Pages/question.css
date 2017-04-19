@@ -141,3 +141,13 @@
         height: 100%;
         width: 100%;
     }
+
+.dt-dotdotdot {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.singlefile{
+    padding: 5px;
+}

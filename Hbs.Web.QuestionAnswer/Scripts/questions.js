@@ -42,19 +42,16 @@ $(function () {
             if (files.length > 0) {
                 $('#selectedFiles').html('');
 
-
                 for (var x = 0; x < files.length; x++) {
                     var filesize = ((files[x].size / 1024) / 1024).toFixed(4); // MB
                     var fileRow = "";
 
                     if (filesize <= 4) { //default MVC settings -> 4MB
-                        fileRow = $.parseHTML('<div class="ms-Grid-row"><div class="ms-Grid-col ms-u-sm1"><i class="ms-Icon ms-Icon--CheckMark" title="CheckMark" aria-hidden="true"></i></div><div class="ms-Grid-col ms-u-sm11 dt-dotdotdot" title="' + files[x].name + '">' + files[x].name + '</div></div>');
+                        fileRow = $.parseHTML('<div class="col-lg-1"><i class="glyphicon glyphicon-ok" title="CheckMark" aria-hidden="true"></i></div><div class="col-lg-11 dt-dotdotdot" title="' + files[x].name + '">' + files[x].name + '</div>');
                     }
                     else {
-                        fileRow = $.parseHTML('<div class="ms-Grid-row"><div class="ms-Grid-col ms-u-sm1"><i class="ms-Icon ms-Icon--Warning" title="Warning" aria-hidden="true" style="color: red;"></i></div><div class="ms-Grid-col ms-u-sm6 dt-dotdotdot" title="' + files[x].name + '">' + files[x].name + '</div><div class="ms-Grid-col ms-u-sm5">' + DtLanguageResources['GeneralLabelFileTooBig'] + '</div></div>');
-
+                        fileRow = $.parseHTML('<div class="col-lg-1"><i class="glyphicon glyphicon-remove" title="Warning" aria-hidden="true" style="color: red;"></i></div><div class="col-lg-3 dt-dotdotdot" title="' + files[x].name + '">' + files[x].name + '</div><div class=col-lg-8">' + 'Die Datei ist zu groß' + '</div>');
                         error = true;
-
                     }
                     $('#selectedFiles').append(fileRow);
                 }
@@ -65,3 +62,8 @@ $(function () {
         });
     });
 });
+
+function deleteAttachment(id) {
+    $('#attrowid' + id).hide();
+    $('#attrdeleteid' + id).val(true);
+}

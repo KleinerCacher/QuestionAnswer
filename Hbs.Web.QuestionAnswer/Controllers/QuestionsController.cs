@@ -163,7 +163,9 @@ namespace Hbs.Web.QuestionAnswer.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Question question = db.Questions.Find(id);
+            Question question = db.Questions.Where(x => x.Id == id)
+                                            .Include(x => x.Attachments)
+                                            .FirstOrDefault();
             if (question == null)
             {
                 return HttpNotFound();
@@ -207,12 +209,20 @@ namespace Hbs.Web.QuestionAnswer.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Author,Text,CreationDate")] Question question, IEnumerable<HttpPostedFileBase> files)
+        public ActionResult Edit(Question question, IEnumerable<HttpPostedFileBase> files)
         {
             if (ModelState.IsValid)
             {
                 question.ModifiedDate = DateTime.Now;
-                db.Entry(question).State = EntityState.Modified;
+
+                foreach (var attachment in question.Attachments)
+                {
+                    if (attachment.Delete)
+                    {
+                        var item = db.QuestionAttachments.Find(attachment.Id);
+                        db.QuestionAttachments.Remove(item);
+                    }
+                }
 
                 var attachments = AttachmentHelper.TransformToAttachments(question.Id, files);
                 db.QuestionAttachments.AddRange(attachments);

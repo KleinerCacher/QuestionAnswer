@@ -34,6 +34,7 @@ namespace Hbs.Web.QuestionAnswer.Models
         public Question()
         {
             Answers = new List<Answer>();
+            Attachments = new List<QuestionAttachment>();
         }
     }
 }
