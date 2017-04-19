@@ -9,10 +9,8 @@ namespace Hbs.Web.QuestionAnswer.Models
     {
         [Key]
         public int Id { get; set; }
-        // TODO Question ID muss Indeziert werden
         public int QuestionId { get; set; }
         public Question Question { get; set; }
-        // TODO Textarea richtig ziehen in Create (Question) und Edit
         public string Text { get; set; }
         public string Author { get; set; }
 

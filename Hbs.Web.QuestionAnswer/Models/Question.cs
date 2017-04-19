@@ -13,10 +13,7 @@ namespace Hbs.Web.QuestionAnswer.Models
         [DisplayName("Titel")]
         public string Title { get; set; }
         public string Author { get; set; }
-
-        // TODO Textarea richtig ziehen in Create und Edit
         public string Text { get; set; }
-
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
         public DateTime CreationDate { get; set; }
 

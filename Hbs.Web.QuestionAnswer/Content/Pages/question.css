@@ -80,7 +80,8 @@
     word-wrap: break-word;
 }
 
-.question-answer-textarea {
+.question-answer-textarea {    
+    min-width: 100%;
 }
 
 .moderationtext {
