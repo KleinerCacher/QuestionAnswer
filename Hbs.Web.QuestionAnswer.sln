@@ -5,6 +5,11 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hbs.Web.QuestionAnswer", "Hbs.Web.QuestionAnswer\Hbs.Web.QuestionAnswer.csproj", "{DA21E1E2-6D83-40A8-A658-0870F0E1C2F4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Installation", "_Installation", "{121294CA-9935-45F9-8E22-81F908A7C45B}"
+	ProjectSection(SolutionItems) = preProject
+		_Installation\Doc.txt = _Installation\Doc.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

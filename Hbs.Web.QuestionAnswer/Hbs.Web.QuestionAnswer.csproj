@@ -178,6 +178,7 @@
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\img\sign-check.png" />
     <Content Include="Content\Pages\question.css" />
+    <Content Include="Error.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
