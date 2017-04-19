@@ -65,7 +65,7 @@
     </div>
 
 
-        @Html.HiddenFor(model => model.Author)
+    @Html.HiddenFor(model => model.Author)
                 @Html.HiddenFor(model => model.CreationDate)
                 @Html.HiddenFor(model => model.Title)
                 @Html.HiddenFor(model => model.Text)
@@ -107,8 +107,30 @@
                                 @Html.Raw(answer.Text)
                             </div>
                         </div>
+                        <div>
+                            @if (answer.Attachments.Count != 0)
+                            {
+                                <div class="form-group">
+                                    <div>
+                                        <label class="ms-Label">Bilder</label>
+                                    </div>
+                                    <div class="row">
+                                        @foreach (var attachment in answer.Attachments)
+                                        {
+                                            <div>
+                                                <div class="col-md-1">
+                                                    <div class="image-preview">
+                                                        <img src="/Answers/Attachment/@attachment.Id" class="dt-image-to-dialog" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        </div>
                         <hr />
-                    }
+                                        }
 
                     <div class="form-horizontal form-group">
                         <h4>Neue Antwort</h4>

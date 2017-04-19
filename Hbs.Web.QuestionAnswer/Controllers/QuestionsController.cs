@@ -103,28 +103,16 @@ namespace Hbs.Web.QuestionAnswer.Controllers
         private QuestionViewModel GenerateQuestionViewModel(int? id)
         {
             var question = db.Questions
-                .Include(q => q.Attachments.Select(x => x.Id))
+                .Include(q => q.Attachments)
                 .Include(q => q.Answers.Select(a => a.Attachments))
-                .Select(q => new QuestionViewModel
-                {
-                    Id = q.Id,
-                    Title = q.Title,
-                    Text = q.Text,
-                    IsSolved = q.Answers.Any(a => a.IsCorrectAnswer),
-                    Author = q.Author,
-                    CreationDate = q.CreationDate,
-                    ModifiedDate = q.ModifiedDate,
-                    Answers = q.Answers,
-                    Attachments = q.Attachments
-                })
-                .SingleOrDefault(q => q.Id == id);
+                .SingleOrDefault(q => q.Id == id);            
 
             if (question == null)
             {
                 return null;
             }
 
-            return question;
+            return new QuestionViewModel(question);
         }
 
         public ActionResult Attachment(int id)
@@ -144,7 +132,7 @@ namespace Hbs.Web.QuestionAnswer.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Text")] Question question)
+        public ActionResult Create(Question question, IEnumerable<HttpPostedFileBase> files)
         {
             question.CreationDate = DateTime.Now;
             question.Author = User.Identity.Name;
@@ -152,6 +140,10 @@ namespace Hbs.Web.QuestionAnswer.Controllers
             if (ModelState.IsValid)
             {
                 question = db.Questions.Add(question);
+
+                var attachments = AttachmentHelper.TransformToQuestionAttachments(question.Id, files);
+                db.QuestionAttachments.AddRange(attachments);
+
                 db.SaveChanges();
                 var emailManager = new EmailManager(Request.Url.GetLeftPart(UriPartial.Authority));
                 emailManager.NewQuestionCreated(question.Id, question.Title);

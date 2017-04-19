@@ -32,5 +32,18 @@ namespace Hbs.Web.QuestionAnswer.ViewModels
             Answers = new List<Answer>();
             Attachments = new List<QuestionAttachment>();
         }
+
+        public QuestionViewModel(Question question)
+        {
+            Id = question.Id;
+            Title = question.Title;
+            Text = question.Text;
+            IsSolved = question.Answers.Any(a => a.IsCorrectAnswer);
+            Author = question.Author;
+            CreationDate = question.CreationDate;
+            ModifiedDate = question.ModifiedDate;
+            Answers = question.Answers;
+            Attachments = question.Attachments;
+        }
     }
 }
