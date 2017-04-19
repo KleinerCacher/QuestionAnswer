@@ -1,13 +1,9 @@
 ﻿using Elmah;
-using Hbs.Web.QuestionAnswer.Models;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.DirectoryServices;
+using System.DirectoryServices.AccountManagement;
 using System.Globalization;
-using System.Linq;
 using System.Net.Mail;
-using System.Web;
 
 namespace Hbs.Web.QuestionAnswer.Common
 {
@@ -84,24 +80,25 @@ namespace Hbs.Web.QuestionAnswer.Common
 
         private string GetMailAdress(string loginame)
         {
-            const string mailPropertyName = "mail";
-
             if (loginame.Contains(@"\"))
             {
-                loginame = loginame.Substring(loginame.IndexOf(@"\") + 1);
+                loginame = loginame.Substring(loginame.IndexOf(@"\", StringComparison.Ordinal) + 1);
             }
 
-            DirectorySearcher dirSearcher = new DirectorySearcher();
-            DirectoryEntry entry = new DirectoryEntry(dirSearcher.SearchRoot.Path);
-            dirSearcher.Filter = "(&(objectClass=user)(objectcategory=person)(mail=" + loginame + "*))";
+            PrincipalContext ctx = new PrincipalContext(ContextType.Domain);
+            UserPrincipal user = UserPrincipal.FindByIdentity(ctx, loginame);
 
-            SearchResult account = dirSearcher.FindOne();
-            if (!account.Properties.Contains(mailPropertyName))
+            if (user == null)
             {
-                throw new ArgumentException("account " + account.Properties["cn"] + "doens't contain mail property");
+                throw new Exception("Account not found");
             }
-            ResultPropertyValueCollection valColl = account.Properties[mailPropertyName];
-            return valColl[0].ToString();
+
+            if (string.IsNullOrEmpty(user.EmailAddress))
+            {
+                throw new ArgumentException("users mailadress is empty");
+            }
+
+            return user.EmailAddress;
         }
 
         private static void SendMail(string[] to, string subject, string body)
