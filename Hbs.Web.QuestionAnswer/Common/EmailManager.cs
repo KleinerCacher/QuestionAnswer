@@ -1,4 +1,5 @@
-﻿using Hbs.Web.QuestionAnswer.Models;
+﻿using Elmah;
+using Hbs.Web.QuestionAnswer.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -31,10 +32,9 @@ namespace Hbs.Web.QuestionAnswer.Common
                 var to = GetMailAdress(answerAuthor);
                 SendMail(new string[] { to }, subject, body);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // TODO Logging
-                // TODO Notification  
+                ErrorSignal.FromCurrentContext().Raise(ex);
             }
         }
 
@@ -51,10 +51,9 @@ namespace Hbs.Web.QuestionAnswer.Common
                 var to = ConfigurationManager.AppSettings["MailKeyuser"].Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
                 SendMail(to, subject, body);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // TODO Logging
-                // TODO Notification  
+                ErrorSignal.FromCurrentContext().Raise(ex);
             }
         }
 
@@ -73,8 +72,7 @@ namespace Hbs.Web.QuestionAnswer.Common
             }
             catch (Exception ex)
             {
-                // TODO Logging
-                // TODO Notification               
+                ErrorSignal.FromCurrentContext().Raise(ex);
             }
         }
 

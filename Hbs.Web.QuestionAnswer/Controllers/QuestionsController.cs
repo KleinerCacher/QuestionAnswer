@@ -105,7 +105,7 @@ namespace Hbs.Web.QuestionAnswer.Controllers
             var question = db.Questions
                 .Include(q => q.Attachments)
                 .Include(q => q.Answers.Select(a => a.Attachments))
-                .SingleOrDefault(q => q.Id == id);            
+                .SingleOrDefault(q => q.Id == id);
 
             if (question == null)
             {
@@ -264,6 +264,11 @@ namespace Hbs.Web.QuestionAnswer.Controllers
 
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Trouble()
+        {
+            return View();
         }
 
         protected override void Dispose(bool disposing)
