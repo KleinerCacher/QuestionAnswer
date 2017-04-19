@@ -5,8 +5,7 @@
             $(picture).click(function () {
                 var dialogElement = document.querySelector('#pictureDialog');
                 dialogElement.querySelector('#pictureElement').src = this.src;
-                var dialog = new fabric.Dialog(dialogElement);
-                dialog.open();
+                $('#pictureDialog').modal('show');
             });
         });
     }
