@@ -63,7 +63,6 @@ namespace Hbs.Web.QuestionAnswer.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            throw new Exception("fsdfsd");
             var questionView = GenerateQuestionViewModel(id);
             if (questionView == null)
             {
