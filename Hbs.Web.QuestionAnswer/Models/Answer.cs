@@ -1,9 +1,7 @@
-﻿using System;
+﻿using Hbs.Web.QuestionAnswer.Models.Attachments;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 
 namespace Hbs.Web.QuestionAnswer.Models
 {
@@ -24,5 +22,11 @@ namespace Hbs.Web.QuestionAnswer.Models
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
         public DateTime? ModifiedDate { get; set; }
         public bool IsCorrectAnswer { get; set; }
+        public List<AnswerAttachment> Attachments { get; set; }
+
+        public Answer()
+        {
+            Attachments = new List<AnswerAttachment>();
+        }
     }
 }

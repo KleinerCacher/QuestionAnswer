@@ -150,6 +150,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Answer.cs" />
+    <Compile Include="Models\Attachments\AnswerAttachment.cs" />
     <Compile Include="Models\Attachments\Attachment.cs" />
     <Compile Include="Models\Attachments\AttachmentType.cs" />
     <Compile Include="Models\Attachments\QuestionAttachment.cs" />
