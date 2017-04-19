@@ -74,7 +74,7 @@ namespace Hbs.Web.QuestionAnswer.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Details([Bind(Include = "Id,NewAnswerText,Author,CreationDate,Text,Title")] QuestionViewModel questionView)
+        public ActionResult Details(QuestionViewModel questionView, IEnumerable<HttpPostedFileBase> files)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,11 @@ namespace Hbs.Web.QuestionAnswer.Controllers
                     CreationDate = DateTime.Now
                 };
 
-                db.Answers.Add(answer);
+                answer = db.Answers.Add(answer);
+
+                var attachments = AttachmentHelper.TransformToAnswerAttachment(answer.Id, files);
+                db.AnswerAttachments.AddRange(attachments);
+
                 db.SaveChanges();
                 var emailManager = new EmailManager(Request.Url.GetLeftPart(UriPartial.Authority));
                 emailManager.NewAnswerCreated(questionView.Id, questionView.Title, questionView.Author);
@@ -100,6 +104,7 @@ namespace Hbs.Web.QuestionAnswer.Controllers
         {
             var question = db.Questions
                 .Include(q => q.Attachments.Select(x => x.Id))
+                .Include(q => q.Answers.Select(a => a.Attachments))
                 .Select(q => new QuestionViewModel
                 {
                     Id = q.Id,
@@ -214,17 +219,16 @@ namespace Hbs.Web.QuestionAnswer.Controllers
             if (ModelState.IsValid)
             {
                 question.ModifiedDate = DateTime.Now;
+                db.Entry(question).State = EntityState.Modified;
 
-                foreach (var attachment in question.Attachments)
+                var questionsToDelete = question.Attachments.Where(x => x.Delete).ToList();
+                foreach (var attachment in questionsToDelete)
                 {
-                    if (attachment.Delete)
-                    {
-                        var item = db.QuestionAttachments.Find(attachment.Id);
-                        db.QuestionAttachments.Remove(item);
-                    }
+                    var item = db.QuestionAttachments.Find(attachment.Id);
+                    db.QuestionAttachments.Remove(item);
                 }
 
-                var attachments = AttachmentHelper.TransformToAttachments(question.Id, files);
+                var attachments = AttachmentHelper.TransformToQuestionAttachments(question.Id, files);
                 db.QuestionAttachments.AddRange(attachments);
 
                 db.SaveChanges();

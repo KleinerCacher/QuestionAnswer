@@ -30,6 +30,7 @@ namespace Hbs.Web.QuestionAnswer.ViewModels
         public QuestionViewModel()
         {
             Answers = new List<Answer>();
+            Attachments = new List<QuestionAttachment>();
         }
     }
 }

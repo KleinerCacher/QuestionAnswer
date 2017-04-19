@@ -55,10 +55,11 @@
                             <div class="col-lg-5 dt-dotdotdot" title="@Model.Attachments[i].Name">@Model.Attachments[i].Name</div>
                             <div class="col-lg-5">
                                 <a href="javascript:void(0)" title="Delete" onclick="deleteAttachment(@Model.Attachments[i].Id)">
-                                   <span class="glyphicon glyphicon-trash"></span>
+                                    <span class="glyphicon glyphicon-trash"></span>
                                 </a>
                             </div>
                             @Html.HiddenFor(model => model.Attachments[i].Id)
+                            @Html.HiddenFor(model => model.Attachments[i].QuestionId)
                             @Html.HiddenFor(model => model.Attachments[i].Name)
                             @Html.HiddenFor(model => model.Attachments[i].Delete, new { id = "attrdeleteid" + Model.Attachments[i].Id })
                         </div>

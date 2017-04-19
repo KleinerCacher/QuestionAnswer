@@ -29,5 +29,7 @@ namespace Hbs.Web.QuestionAnswer.Data
         public DbSet<Models.Answer> Answers { get; set; }
 
         public DbSet<Models.Attachments.QuestionAttachment> QuestionAttachments { get; set; }
+
+        public DbSet<Models.Attachments.AnswerAttachment> AnswerAttachments { get; set; }
     }
 }

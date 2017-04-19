@@ -1,9 +1,14 @@
-﻿using Hbs.Web.QuestionAnswer.Data;
+﻿using Hbs.Web.QuestionAnswer.Common;
+using Hbs.Web.QuestionAnswer.Data;
 using Hbs.Web.QuestionAnswer.Models;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
+using System.Linq;
+using Hbs.Web.QuestionAnswer.Models.Attachments;
 
 namespace Hbs.Web.QuestionAnswer.Controllers
 {
@@ -18,7 +23,9 @@ namespace Hbs.Web.QuestionAnswer.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Answer answer = db.Answers.Find(id);
+            Answer answer = db.Answers.Where(x => x.Id == id)
+                                      .Include(x => x.Attachments)
+                                      .FirstOrDefault();
             if (answer == null)
             {
                 return HttpNotFound();
@@ -38,12 +45,23 @@ namespace Hbs.Web.QuestionAnswer.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,QuestionId,Text,Author,CreationDate,ModifiedDate")] Answer answer)
+        public ActionResult Edit(Answer answer, IEnumerable<HttpPostedFileBase> files)
         {
             if (ModelState.IsValid)
             {
                 answer.ModifiedDate = DateTime.Now;
                 db.Entry(answer).State = EntityState.Modified;
+
+                var attachmentsToDelete = answer.Attachments.Where(x => x.Delete).ToList();
+                foreach (var attachment in attachmentsToDelete)
+                {
+                    var item = db.AnswerAttachments.Find(attachment.Id);
+                    db.AnswerAttachments.Remove(item);
+                }
+
+                var attachments = AttachmentHelper.TransformToAnswerAttachment(answer.Id, files);
+                db.AnswerAttachments.AddRange(attachments);
+
                 db.SaveChanges();
                 return RedirectToAction("Details", "Questions", new { id = answer.QuestionId });
             }
@@ -85,6 +103,12 @@ namespace Hbs.Web.QuestionAnswer.Controllers
             db.Answers.Remove(answer);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Attachment(int id)
+        {
+            AnswerAttachment img = db.AnswerAttachments.Find(id);
+            return File(img.Data, EnumDescription.Get(img.FileType));
         }
 
         protected override void Dispose(bool disposing)

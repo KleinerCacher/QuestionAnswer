@@ -11,34 +11,56 @@ namespace Hbs.Web.QuestionAnswer.Common
 {
     public static class AttachmentHelper
     {
-        public static List<QuestionAttachment> TransformToAttachments(int questionId ,IEnumerable<HttpPostedFileBase> files)
+        public static List<AnswerAttachment> TransformToAnswerAttachment(int answerId, IEnumerable<HttpPostedFileBase> files)
+        {
+            var attachments = new List<AnswerAttachment>();
+            foreach (var file in files)
+            {
+                if (file == null) continue;
+
+                Attachment attachment = GenerateAttachment(file);
+                var answerAttachment = new AnswerAttachment(answerId, attachment);
+                attachments.Add(answerAttachment);
+            }
+
+            return attachments;
+        }
+
+        public static List<QuestionAttachment> TransformToQuestionAttachments(int questionId ,IEnumerable<HttpPostedFileBase> files)
         {
             var attachments = new List<QuestionAttachment>(); 
             foreach (var file in files)
             {
                 if (file == null) continue;
 
-                string[] filesegments = file.FileName.Split('\\');
-                byte[] arr = new byte[file.InputStream.Length];
-                file.InputStream.Read(arr, 0, (int)file.InputStream.Length);
-
-                AttachmentType fType = GetTypeByName(file.FileName);
-
-                //resize image if larger then configered size
-                int configMaxHeight = Int32.Parse(ConfigurationManager.AppSettings[Constants.ResizeImageMaxHeight], CultureInfo.InvariantCulture);
-                int configQuality = Int32.Parse(ConfigurationManager.AppSettings[Constants.ResizeQuality], CultureInfo.InvariantCulture);
-                arr = ResizeImage(file.InputStream, fType, configMaxHeight, configQuality);
-
-                attachments.Add(new QuestionAttachment
-                {
-                    Data = arr,
-                    QuestionId = questionId,
-                    FileType = fType,
-                    Name = filesegments[filesegments.Length - 1]
-                });
+                Attachment attachment = GenerateAttachment(file);
+                var questionAttachment = new QuestionAttachment(questionId, attachment);
+                attachments.Add(questionAttachment);
             }
 
             return attachments;
+        }
+
+        private static Attachment GenerateAttachment(HttpPostedFileBase file)
+        {
+            string[] filesegments = file.FileName.Split('\\');
+            byte[] arr = new byte[file.InputStream.Length];
+            file.InputStream.Read(arr, 0, (int)file.InputStream.Length);
+
+            AttachmentType fType = GetTypeByName(file.FileName);
+
+            //resize image if larger then configered size
+            int configMaxHeight = Int32.Parse(ConfigurationManager.AppSettings[Constants.ResizeImageMaxHeight], CultureInfo.InvariantCulture);
+            int configQuality = Int32.Parse(ConfigurationManager.AppSettings[Constants.ResizeQuality], CultureInfo.InvariantCulture);
+            arr = ResizeImage(file.InputStream, fType, configMaxHeight, configQuality);
+
+            var attachment = new Attachment
+            {
+                Data = arr,
+                FileType = fType,
+                Name = filesegments[filesegments.Length - 1]
+            };
+            return attachment;
         }
 
         private static byte[] ResizeImage(Stream input, AttachmentType fileType, int configMaxHeight, int configQuality)
