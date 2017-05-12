@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hbs.Web.QuestionAnswer", "Hbs.Web.QuestionAnswer\Hbs.Web.QuestionAnswer.csproj", "{DA21E1E2-6D83-40A8-A658-0870F0E1C2F4}"
 EndProject
@@ -13,6 +13,14 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Test", "_Test", "{7ADD6657-3C9D-49B9-9C89-AF12F29E0497}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsernameAndEmailTest", "_Test\UsernameAndEmailTest\UsernameAndEmailTest.csproj", "{61FBDF6D-282A-46F5-B1DD-A28EB6984105}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Release", "Release", "{D272DFD4-F5BD-4BCB-A43A-B695578817D4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1000_Initial", "1000_Initial", "{ACEA04D5-0743-4672-B4D2-B8EF348B1D9A}"
+	ProjectSection(SolutionItems) = preProject
+		_Installation\Release\1000_Initial\Initial.sql = _Installation\Release\1000_Initial\Initial.sql
+		_Installation\Release\1000_Initial\WebApp.zip = _Installation\Release\1000_Initial\WebApp.zip
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,5 +42,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{61FBDF6D-282A-46F5-B1DD-A28EB6984105} = {7ADD6657-3C9D-49B9-9C89-AF12F29E0497}
+		{D272DFD4-F5BD-4BCB-A43A-B695578817D4} = {121294CA-9935-45F9-8E22-81F908A7C45B}
+		{ACEA04D5-0743-4672-B4D2-B8EF348B1D9A} = {D272DFD4-F5BD-4BCB-A43A-B695578817D4}
 	EndGlobalSection
 EndGlobal
