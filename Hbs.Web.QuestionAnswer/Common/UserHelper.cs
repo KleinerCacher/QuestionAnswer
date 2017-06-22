@@ -10,26 +10,39 @@ namespace Hbs.Web.QuestionAnswer.Common
     {
         public static string GetUserDisplayname(string account)
         {
+            string fullName = string.Empty;
             if (!string.IsNullOrEmpty(account))
-            {
-                using (var context = new PrincipalContext(ContextType.Machine))
+            {              
+                PrincipalContext context = null;
+                try
                 {
-                    var principal = UserPrincipal.FindByIdentity(context, account);
-
-                    if (principal != null)
+                    context = new PrincipalContext(ContextType.Domain);
+                }
+                catch (Exception)
+                {
+                    context = new PrincipalContext(ContextType.Machine);
+                }
+                finally
+                {
+                    if (context != null)
                     {
-                        var fullName = string.Format("{0} {1}", principal.GivenName, principal.Surname);
-                        if (string.IsNullOrWhiteSpace(fullName))
+                        var principal = UserPrincipal.FindByIdentity(context, account);
+
+                        if (principal != null)
                         {
-                            fullName = principal.Name;
+                            fullName = string.Format("{0} {1}", principal.GivenName, principal.Surname);
+                            if (string.IsNullOrWhiteSpace(fullName))
+                            {
+                                fullName = principal.Name;
+                            }
                         }
 
-                        return fullName;
+                        context.Dispose();
                     }
                 }
             }
 
-            return string.Empty;
+            return fullName;
         }
     }
 }
